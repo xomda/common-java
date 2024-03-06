@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.xomda'
+version = libs.versions.xomda.commons.java
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation libs.junit.jupiter
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
