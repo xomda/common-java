@@ -50,14 +50,25 @@ public class PredicatesTest {
 	@Test
 	public void testCachedNull() {
 		AtomicInteger counter = new AtomicInteger();
+		// 1) test "true"
 		Predicate<Object> p = cached(o -> {
 			counter.incrementAndGet();
 			return false;
 		});
-		// test whether a provided null-value is cached correctly
+		// 1.1) test whether a provided null-value is cached correctly
 		assertFalse(p.test(null));
 		IntStream.range(0, 100).mapToObj(i -> null).forEach(p::test);
 		assertEquals(1, counter.get());
+
+		// 2) test "false"
+		Predicate<Object> p2 = cached(o -> {
+			counter.incrementAndGet();
+			return true;
+		});
+		// 2.1) test whether a provided null-value is cached correctly
+		assertTrue(p2.test(null));
+		IntStream.range(0, 100).mapToObj(i -> null).forEach(p::test);
+		assertEquals(2, counter.get());
 	}
 
 }
