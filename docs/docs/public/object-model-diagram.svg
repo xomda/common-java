@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="775.95752"
+   height="680.25159"
+   viewBox="0 0 137.848 120.84595"
+   version="1.1"
+   id="svg1"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="Diamond"
+       refX="0"
+       refY="0"
+       orient="auto"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       preserveAspectRatio="xMidYMid">
+      <path
+         transform="scale(0.45)"
+         style="fill:context-stroke;fill:#666666;fill-rule:evenodd;stroke:none"
+         d="M 0,-7.0710768 -7.0710894,0 0,7.0710589 7.0710462,0 Z"
+         id="path19" />
+    </marker>
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(-1.7521477,-1.9476901)">
+    <rect
+       style="opacity:1;fill:#666666;fill-opacity:0.498008;stroke-width:21.1667"
+       id="rect1"
+       width="54.239582"
+       height="29.104166"
+       x="43.027157"
+       y="1.9476901"
+       ry="4.2333283" />
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444px;line-height:0.215085px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';letter-spacing:0px;opacity:1;fill:#ffffff;fill-opacity:0.997163;stroke-width:21.1667"
+       x="58.406067"
+       y="18.061094"
+       id="text1"><tspan
+         id="tspan1"
+         style="font-size:5.64444px;line-height:0.215085px;letter-spacing:0px;fill:#ffffff;fill-opacity:0.997163;stroke-width:21.1667"
+         x="58.406067"
+         y="18.061094">Package</tspan></text>
+    <rect
+       style="opacity:1;fill:#666666;fill-opacity:0.498008;stroke-width:21.1667"
+       id="rect1-2"
+       width="54.239582"
+       height="29.104166"
+       x="1.7521553"
+       y="47.985195"
+       ry="4.2333283" />
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444px;line-height:0.215085px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';letter-spacing:0px;white-space:pre;inline-size:0;opacity:1;fill:#ffffff;fill-opacity:0.997163;stroke-width:21.1667"
+       x="55.220737"
+       y="135.50923"
+       id="text1-2"
+       transform="translate(-26.486595,-71.410647)"><tspan
+         id="tspan1-7"
+         style="font-size:5.64444px;line-height:0.215085px;text-align:center;letter-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:0.997163;stroke-width:21.1667"
+         x="55.220737"
+         y="135.50923">Entity</tspan></text>
+    <rect
+       style="opacity:1;fill:#666666;fill-opacity:0.498008;stroke-width:21.1667"
+       id="rect1-2-0"
+       width="54.239582"
+       height="29.104166"
+       x="85.360489"
+       y="47.985195"
+       ry="4.2333283" />
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444px;line-height:0.215085px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';letter-spacing:0px;opacity:1;fill:#ffffff;fill-opacity:0.997163;stroke-width:21.1667"
+       x="111.92907"
+       y="64.098587"
+       id="text1-2-2"><tspan
+         id="tspan1-7-3"
+         style="font-size:5.64444px;line-height:0.215085px;text-align:center;letter-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:0.997163;stroke-width:21.1667"
+         x="111.92907"
+         y="64.098587">Enum</tspan></text>
+    <rect
+       style="opacity:1;fill:#666666;fill-opacity:0.498008;stroke-width:21.1667"
+       id="rect1-2-0-0"
+       width="54.239582"
+       height="29.104166"
+       x="85.360497"
+       y="93.689407"
+       ry="4.2333283" />
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444px;line-height:0.215085px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';letter-spacing:0px;opacity:1;fill:#ffffff;fill-opacity:0.997163;stroke-width:21.1667"
+       x="111.92908"
+       y="109.80281"
+       id="text1-2-2-3"><tspan
+         id="tspan1-7-3-9"
+         style="font-size:5.64444px;line-height:0.215085px;text-align:center;letter-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:0.997163;stroke-width:21.1667"
+         x="111.92908"
+         y="109.80281">Value</tspan></text>
+    <rect
+       style="opacity:1;fill:#666666;fill-opacity:0.498008;stroke-width:21.1667"
+       id="rect1-2-0-0-7"
+       width="54.239582"
+       height="29.104166"
+       x="1.7521477"
+       y="93.689407"
+       ry="4.2333283" />
+    <text
+       xml:space="preserve"
+       style="font-size:5.64444px;line-height:0.215085px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';letter-spacing:0px;opacity:1;fill:#ffffff;fill-opacity:0.997163;stroke-width:21.1667"
+       x="28.320732"
+       y="109.80281"
+       id="text1-2-2-3-6"><tspan
+         id="tspan1-7-3-9-2"
+         style="font-size:5.64444px;line-height:0.215085px;text-align:center;letter-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:0.997163;stroke-width:21.1667"
+         x="28.320732"
+         y="109.80281">Attribute</tspan></text>
+    <path
+       style="opacity:1;fill:none;fill-opacity:0.997163;stroke:#666666;stroke-width:0.767001;stroke-dasharray:none;stroke-opacity:0.501992;marker-start:url(#Diamond)"
+       d="M 42.758083,34.528073 32.637979,45.074823"
+       id="path1" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:0.997163;stroke:#666666;stroke-width:0.767001;stroke-dasharray:none;stroke-opacity:0.501992;marker-start:url(#Diamond)"
+       d="m 95.999788,34.528073 10.120102,10.54675"
+       id="path1-1" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:0.997163;stroke:#666666;stroke-width:0.767003;stroke-dasharray:none;stroke-opacity:0.501992;marker-start:url(#Diamond)"
+       d="m 26.353507,81.240013 v 10.15689"
+       id="path1-8" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:0.997163;stroke:#666666;stroke-width:0.767003;stroke-dasharray:none;stroke-opacity:0.501992;marker-start:url(#Diamond)"
+       d="m 112.48028,81.182893 v 10.15689"
+       id="path1-8-5" />
+    <path
+       style="opacity:1;fill:none;fill-opacity:0.997163;stroke:#666666;stroke-width:0.767002;stroke-dasharray:none;stroke-opacity:0.501992;marker-start:url(#Diamond)"
+       d="m 101.35067,20.733106 9.99761,0.264583 v -7.672917 h -10.05416"
+       id="path1-1-7" />
+  </g>
+</svg>
