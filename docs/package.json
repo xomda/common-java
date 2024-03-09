@@ -6,7 +6,7 @@
   "devDependencies": {
     "eslint": "^8.57.0",
     "prettier": "^3.2.5",
-    "typescript": "^5.3.3",
+    "typescript": "^5.4.2",
     "vitepress": "^1.0.0-rc.44",
     "vue": "^3.4.19"
   },
