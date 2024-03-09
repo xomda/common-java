@@ -1,7 +1,12 @@
 package org.xomda.common.util;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * Utils for creating and working with {@link Predicate predicates}.
@@ -47,6 +52,24 @@ public class Predicates {
 	}
 
 	/**
+	 * Combines multiple {@link Predicate predicates} using logical OR.
+	 */
+	public static <T> Predicate<T> or(Predicate<T>... predicates) {
+		return predicates == null
+				? alwaysTrue()
+				: Stream.of(predicates).reduce(alwaysFalse(), Predicate::or);
+	}
+
+	/**
+	 * Combines multiple {@link Predicate predicates} using logical AND.
+	 */
+	public static <T> Predicate<T> and(Predicate<T>... predicates) {
+		return predicates == null
+				? alwaysTrue()
+				: Stream.of(predicates).reduce(alwaysTrue(), Predicate::and);
+	}
+
+	/**
 	 * Helper to create a null-safe {@link Predicate} out of a {@link Boolean}-returning method,
 	 * because <code>Boolean</code> — in contrast to a <code>boolean</code> — can be null too,
 	 * which would cause unwanted {@link NullPointerException NPE}'s.
@@ -86,6 +109,32 @@ public class Predicates {
 	 */
 	public static <T, V> Predicate<T> against(Function<T, V> getter, Predicate<V> predicate) {
 		return (T value) -> predicate.test(getter.apply(value));
+	}
+
+	/**
+	 * The default strategy for caching {@link Predicate}s.
+	 */
+	public static class DefaultPredicateCache<T> extends ConcurrentHashMap<T, Boolean> {
+	}
+
+	/**
+	 * Cache the outcome of a {@link Predicate} so it doesn't need to be evaluated all the time.
+	 * The provided cacheSupplier is used to create the cache, such that the user has freedom into
+	 * which implementation is used. By default, a {@link DefaultPredicateCache} will be used for cache.
+	 */
+	public static <T> Predicate<T> cached(Predicate<T> predicate, Supplier<Map<T, Boolean>> cacheSupplier) {
+		Map<T, Boolean> cache = cacheSupplier.get();
+		AtomicReference<Boolean> nullValue = new AtomicReference<>(null);
+		return (T value) -> null == value
+				? nullValue.updateAndGet(b -> null != b ? b : predicate.test(value))
+				: cache.computeIfAbsent(value, k -> predicate.test(value));
+	}
+
+	/**
+	 * Cache the outcome of a {@link Predicate} so it doesn't need to be evaluated all the time
+	 */
+	public static <T> Predicate<T> cached(Predicate<T> predicate) {
+		return cached(predicate, DefaultPredicateCache::new);
 	}
 
 	private Predicates() {

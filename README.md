@@ -22,16 +22,45 @@ There are two built-in default cache implementations.
    The default cache is just a class extending ConcurrentLinkedDeque. It's thread-safe, that's that.
 
 2. ### Limited Blocking Cache
-   This cache extends the default cache, but blocks pushing as long as a maximum allowed number of items is reached. 
+   This cache extends the default cache, but blocks pushing as long as a maximum allowed number of items is reached.
    It will keep the incoming stream open for a longer amount of time, but it will reduce memory usage.
 
-## SneakyThrow  &nbsp;&nbsp;🥷
-This sneaky caretaker has to be taken with care. It makes checked exceptions behave like runtime exceptions, by making them generic. This bypasses the Java compiler and is perfectly allowed within the JVM, which doesn't even know about checked exceptions. 
+## Predicates &nbsp;🕵
+
+Predicates is a set of helper methods which can help a lot when writing clean functional code.
+It's designed to replace common lambda's, using logical naming.
+
+```java
+optional.filter(against(Person::getName, "John"));
+```
+
+```java
+optional.filter(against(Person::getEmail, not(String::isEmpty)));
+```
+
+There are helpers which create null-safe Predicates for usage with method references of Boolean-methods.
+
+```java
+stream.filter(safe(SomeObject::getBoolean));
+```
+
+There are also helpers methods for creating cached Predicates, which will only evaluate once for each distinct value.
+This can be helpful when the Predicate houses an expensive operation, which does not change within the lifespan of the Predicate.
+
+```java
+stream.filter(cached(ExpensiveMethod::call));
+```
+
+## SneakyThrow &nbsp;&nbsp;🥷
+
+This sneaky caretaker has to be taken with care. It makes checked exceptions behave like runtime exceptions, by making them generic. This bypasses the Java compiler and is perfectly allowed within the JVM, which doesn't even know about checked exceptions.
 
 The trick is done by turning the common java functions such as Consumer, Function, Supplier, ... into throwing ones. These throwing ones are just sub interfaces of the originals, so the original superclass is then returned. The throwing method is then caught and the exception is thrown genericly.
 
 ```java
-Stream.of("a", "b", "c").forEach(sneaky(Files::readAllBytes));
+Stream.of("a","b","c").
+
+forEach(sneaky(Files::readAllBytes));
 ```
 
 The problem is now that everything is fine, but you know it may possibly throw an IOException. So in this case, it's advisable to have your method `throw IOException` too. It hands over resposibility to the caller of your method and everything is checked again.
