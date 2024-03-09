@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
@@ -31,6 +32,11 @@ class BufferedStreamTest {
 	void init(TestInfo testInfo) {
 		this.testInfo = testInfo;
 		this.startTime = System.currentTimeMillis();
+	}
+
+	@AfterEach
+	void afterEach() {
+		System.out.println("\n--------------------------------------------------------\n");
 	}
 
 	@Test

@@ -1,10 +1,9 @@
-package org.xomda.common.util;
+package org.xomda.common.function;
 
 import java.util.function.Function;
 import java.util.stream.Stream;
 
 import org.xomda.common.exception.SneakyThrow;
-import org.xomda.common.function.BufferedStream;
 
 /**
  * Utils that provide functionality for when working with {@link java.util.stream.Stream streams}.

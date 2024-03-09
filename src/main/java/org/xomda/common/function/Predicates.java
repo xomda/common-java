@@ -1,4 +1,4 @@
-package org.xomda.common.util;
+package org.xomda.common.function;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

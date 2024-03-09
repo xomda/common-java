@@ -1,10 +1,10 @@
-package org.xomda.common.util;
+package org.xomda.common.function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.xomda.common.util.Predicates.against;
-import static org.xomda.common.util.Predicates.cached;
+import static org.xomda.common.function.Predicates.against;
+import static org.xomda.common.function.Predicates.cached;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
