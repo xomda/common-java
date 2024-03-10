@@ -14,7 +14,7 @@ Filter against a property of an object.
 This may be helpfull when going through a stream, where you don't want to dig into the object using a lambda.
 
 ```java
-against(Person::getName, "Johnny"); // Predicate<Person>
+Predicates.against(Person::getName, "Johnny"); // Predicate<Person>
 ```
 
 ## all
@@ -22,7 +22,7 @@ against(Person::getName, "Johnny"); // Predicate<Person>
 Combine multiple predicates into one, where **each** provided Predicate should evaluate to `true`.
 
 ```java
-all(predicate1, predicate2); // Predicate<T>
+Predicates.all(predicate1, predicate2); // Predicate<T>
 ```
 
 ## any
@@ -30,7 +30,7 @@ all(predicate1, predicate2); // Predicate<T>
 Combine multiple predicates into one, where **any** of the provided Predicate should evaluate to `true`.
 
 ```java
-any(predicate1, predicate2); // Predicate<T>
+Predicates.any(predicate1, predicate2); // Predicate<T>
 ```
 
 ## always(boolean)
@@ -38,7 +38,7 @@ any(predicate1, predicate2); // Predicate<T>
 No matter what, this Predicate will always return the given boolean value.
 
 ```java
-always(true); // Predicate<?>
+Predicates.always(true); // Predicate<?>
 ```
 
 ## alwaysTrue
@@ -46,7 +46,7 @@ always(true); // Predicate<?>
 No matter which value provided, this Predicate will always return `true`.
 
 ```java
-alwaysTrue(); // Predicate<?>
+Predicates.alwaysTrue(); // Predicate<?>
 ```
 
 ## alwaysFalse
@@ -54,7 +54,7 @@ alwaysTrue(); // Predicate<?>
 No matter which value provided, this Predicate will always return `false`.
 
 ```java
-alwaysFalse(); // Predicate<?>
+Predicates.alwaysFalse(); // Predicate<?>
 ```
 
 ## cached
@@ -67,7 +67,7 @@ This can be helpful when the Predicate houses an expensive operation, which does
 Predicate.
 
 ```java
-cached(Files::exists); // Predicate<Path>
+Predicates.cached(Files::exists); // Predicate<Path>
 ```
 
 ## safe
@@ -76,5 +76,5 @@ Evaluates the outcome of a Boolean-method as a null-safe predicate.
 If the Boolean-method returns `null`, then the Predicate will result to `false`.
 
 ```java
-safe(Method::getBoolean); // Predicate<Boolean>
+Predicates.safe(Method::getBoolean); // Predicate<Method>
 ```

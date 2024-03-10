@@ -10,35 +10,41 @@ export default defineConfig({
   srcDir: "./docs",
 
   themeConfig: {
-
     nav: [
-      { text: "Home", link: "http://xomda.org" , target: "_self" },
+      { text: "Home", link: "http://xomda.org", target: "_self" },
       { text: "Documentation", link: "/exception/sneaky-throw" },
-      { text: "Utils", items:[{
-        text: "common-java",
-        target: "_self",
-        link: "//common-java.xomda.org/"
-       }]
+      {
+        text: "Utils",
+        items: [
+          {
+            text: "common-java",
+            target: "_self",
+            link: "//common-java.xomda.org/",
+          },
+        ],
       },
     ],
 
     sidebar: [
       {
-        text: "Exception",
-        items: [
-            { text: "SneakyThrow", link: "/exception/sneaky-throw" }
-        ],
+        text: "exception",
+        items: [{ text: "SneakyThrow", link: "/exception/sneaky-throw" }],
       },
       {
-        text: "Function",
+        text: "function",
+        items: [{ text: "Predicates", link: "/function/predicates" }],
+      },
+      {
+        text: "utils.stream",
         items: [
-            { text: "BufferedStream", link: "/function/buffered-stream" },
-            { text: "Predicates", link: "/function/predicates" }
+          { text: "BufferedStream", link: "/utils/stream/buffered-stream" },
         ],
       },
     ],
 
-    socialLinks: [{ icon: "github", link: "https://github.com/xomda/common-java" }],
+    socialLinks: [
+      { icon: "github", link: "https://github.com/xomda/common-java" },
+    ],
 
     search: {
       provider: "local",

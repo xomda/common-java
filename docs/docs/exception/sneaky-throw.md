@@ -20,13 +20,15 @@ It just comes in real handy when working with streams, but always remember that 
 otherwise had to handle. And it's better to throw these exact exceptions, than to just throw a `new RuntimeException(e)`
 out of lazyness. It keeps the code clean, but it requires responsibility.
 
+💡&nbsp;Tip: Use `static import`.
+
 ## sneaky
 
 The sneaky method turns a `java.util` functions into throwing ones. An overview of those throwing functions is found
 below.
 
 ```java
-stream.forEach(sneaky(Files::readAllBytes));
+stream.forEach(SneakyThrow.sneaky(Files::readAllBytes));
 ```
 
 ## throwSneaky
@@ -37,7 +39,7 @@ than throwing the provided Exception as a generic one (`<E extends Throwable>`).
 This will obfuscate the checked Exception, so that it gets treated as being a runtime Exception.
 
 ```java
-throwSneaky(new IOException());
+SneakyThrow.throwSneaky(new IOException());
 ```
 
 ## Functions
