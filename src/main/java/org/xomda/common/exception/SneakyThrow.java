@@ -1,8 +1,10 @@
 package org.xomda.common.exception;
 
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -14,43 +16,82 @@ import java.util.function.Supplier;
  */
 public class SneakyThrow {
 
-	public static <T, R, E extends Throwable> Function<T, R> sneaky(final ThrowingFunction<T, R, E> fn) {
-		return fn;
-	}
-
+	/**
+	 * @see #sneakyConsumer(ThrowingConsumer)
+	 */
 	public static <T, E extends Throwable> Consumer<T> sneaky(final ThrowingConsumer<T, E> c) {
 		return c;
 	}
 
+	/**
+	 * @see #sneakyBiConsumer(ThrowingBiConsumer)
+	 */
 	public static <T, U, E extends Throwable> BiConsumer<T, U> sneaky(final ThrowingBiConsumer<T, U, E> c) {
 		return c;
 	}
 
+	/**
+	 * @see #sneakySupplier(ThrowingSupplier)
+	 */
 	public static <T, E extends Throwable> Supplier<T> sneaky(final ThrowingSupplier<T, E> c) {
 		return c;
 	}
 
-	public static <E extends Throwable> Runnable sneaky(final ThrowingRunnable<E> c) {
-		return c;
+	/**
+	 * @see #sneakyFunction(ThrowingFunction)
+	 */
+	public static <T, R, E extends Throwable> Function<T, R> sneaky(final ThrowingFunction<T, R, E> fn) {
+		return fn;
 	}
 
 	// use the methods below when ambiguous
+
+	/**
+	 * Turns the provided {@link ThrowingConsumer throwing Consumer} into a sneaky-throwing {@link Consumer}.
+	 */
 	public static <T, E extends Throwable> Consumer<T> sneakyConsumer(final ThrowingConsumer<T, E> c) {
 		return c;
 	}
 
+	/**
+	 * Turns the provided {@link ThrowingBiConsumer throwing BiConsumer} into a sneaky-throwing {@link BiConsumer}.
+	 */
+	public static <T, U, E extends Throwable> BiConsumer<T, U> sneakyBiConsumer(final ThrowingBiConsumer<T, U, E> c) {
+		return c;
+	}
+
+	/**
+	 * Turns the provided {@link ThrowingFunction throwing Function} into a sneaky-throwing {@link Function}.
+	 */
 	public static <T, R, E extends Throwable> Function<T, R> sneakyFunction(final ThrowingFunction<T, R, E> fn) {
 		return fn;
 	}
 
+	/**
+	 * Turns the provided {@link ThrowingBiFunction throwing Function} into a sneaky-throwing {@link BiFunction}.
+	 */
+	public static <T, U, R, E extends Throwable> BiFunction<T, U, R> sneakyBiFunction(final ThrowingBiFunction<T, U, R, E> fn) {
+		return fn;
+	}
+
+	/**
+	 * Turns the provided {@link ThrowingSupplier throwing Supplier} into a sneaky-throwing {@link Supplier}.
+	 */
 	public static <T, E extends Throwable> Supplier<T> sneakySupplier(final ThrowingSupplier<T, E> c) {
 		return c;
 	}
 
 	/**
-	 * Throws a given {@link Exception Checked Exception} as a generic.
-	 * This way the given {@link Exception Checked Exception} will be treated as
-	 * if it's a {@link RuntimeException Runtime Exception}, while still being the original one.
+	 * Turns the provided {@link ThrowinPredicate throwing Predicate} into a sneaky-throwing {@link Predicate}.
+	 */
+	public static <T, E extends Throwable> Predicate<T> sneakyPredicate(final ThrowinPredicate<T, E> p) {
+		return p;
+	}
+
+	/**
+	 * Throws a given {@link Exception checked Exception} as a generic.
+	 * This way the given {@link Exception checked Exception} will be treated as
+	 * if it's a {@link RuntimeException runtime Exception}, while still being the original one.
 	 */
 	public static <E extends Throwable> void throwSneaky(final Throwable e) throws E {
 		@SuppressWarnings("unchecked")
@@ -58,22 +99,9 @@ public class SneakyThrow {
 		throw genericException;
 	}
 
-	@FunctionalInterface
-	public interface ThrowingRunnable<E extends Throwable> extends Runnable {
-
-		@Override
-		default void run() {
-			try {
-				runThrowing();
-			} catch (final Throwable e) {
-				throwSneaky(e);
-			}
-		}
-
-		void runThrowing() throws E;
-
-	}
-
+	/**
+	 * A {@link Function} which allows throwing.
+	 */
 	@FunctionalInterface
 	public interface ThrowingFunction<T, R, E extends Throwable> extends Function<T, R> {
 
@@ -83,14 +111,35 @@ public class SneakyThrow {
 				return applyThrowing(t);
 			} catch (final Throwable e) {
 				throwSneaky(e);
-				return null;
+				return null; // "unreachable"
 			}
 		}
 
 		R applyThrowing(T t) throws E;
-
 	}
 
+	/**
+	 * A {@link BiFunction} which allows throwing.
+	 */
+	@FunctionalInterface
+	public interface ThrowingBiFunction<T, U, R, E extends Throwable> extends BiFunction<T, U, R> {
+
+		@Override
+		default R apply(final T t, U u) {
+			try {
+				return applyThrowing(t, u);
+			} catch (final Throwable e) {
+				throwSneaky(e);
+				return null; // "unreachable"
+			}
+		}
+
+		R applyThrowing(T t, U u) throws E;
+	}
+
+	/**
+	 * A {@link Consumer} which allows throwing.
+	 */
 	@FunctionalInterface
 	public interface ThrowingConsumer<T, E extends Throwable> extends Consumer<T> {
 
@@ -104,9 +153,11 @@ public class SneakyThrow {
 		}
 
 		void acceptThrowing(T t) throws E;
-
 	}
 
+	/**
+	 * A {@link BiConsumer} which allows throwing.
+	 */
 	@FunctionalInterface
 	public interface ThrowingBiConsumer<T, U, E extends Throwable> extends BiConsumer<T, U> {
 
@@ -120,24 +171,44 @@ public class SneakyThrow {
 		}
 
 		void acceptThrowing(T t, U u) throws E;
-
 	}
 
+	/**
+	 * A {@link Supplier} which allows throwing.
+	 */
 	@FunctionalInterface
-	public interface ThrowingSupplier<R, E extends Throwable> extends Supplier<R> {
+	public interface ThrowingSupplier<T, E extends Throwable> extends Supplier<T> {
 
 		@Override
-		default R get() {
+		default T get() {
 			try {
 				return getThrowing();
 			} catch (final Throwable e) {
 				throwSneaky(e);
-				return null;
+				return null; // "unreachable"
 			}
 		}
 
-		R getThrowing() throws E;
+		T getThrowing() throws E;
+	}
 
+	/**
+	 * A {@link Predicate} which allows throwing.
+	 */
+	@FunctionalInterface
+	public interface ThrowinPredicate<T, E extends Throwable> extends Predicate<T> {
+
+		@Override
+		default boolean test(T value) {
+			try {
+				return testThrowing(value);
+			} catch (final Throwable e) {
+				throwSneaky(e);
+				return false; // "unreachable"
+			}
+		}
+
+		boolean testThrowing(T value) throws E;
 	}
 
 }
