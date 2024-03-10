@@ -1,4 +1,4 @@
-package org.xomda.common.function;
+package org.xomda.common.util.stream;
 
 import static org.xomda.common.exception.SneakyThrow.throwSneaky;
 
@@ -11,15 +11,21 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+/**
+ * Captures the given {@link Stream stream} into a FIFO deque and serves the deque back as a {@link Stream stream}.
+ * This way, the input stream can be closed much earlier than the output stream needs to be.
+ *
+ *
+ */
 public class BufferedStream<T> extends DelegateStream<T> {
 
-	static class DefaultCache<T> extends ConcurrentLinkedDeque<T> {
+	public static class DefaultCache<T> extends ConcurrentLinkedDeque<T> {
 	}
 
 	/**
 	 * A Cache which will block pushing to it, until there is room again.
 	 */
-	static class LimitedBlockingCache<T> extends DefaultCache<T> {
+	public static class LimitedBlockingCache<T> extends DefaultCache<T> {
 
 		public final static int DEFAULT_SIZE = 1024;
 
@@ -131,10 +137,26 @@ public class BufferedStream<T> extends DelegateStream<T> {
 
 	private final Stream<T> delegate;
 
+	/**
+	 * Creates a BufferedStream of the given {@link java.util.stream.Stream stream}, with a specified cache (supplier).
+	 * It allows to provide a custom Deque supplier, which may be better suitable to the user.
+	 */
 	public BufferedStream(Stream<T> stream, Supplier<Deque<T>> queueSupplier) {
 		this.delegate = new Iterator<>(stream, queueSupplier).stream();
 	}
 
+	/**
+	 * Creates a BufferedStream of the given {@link java.util.stream.Stream stream}, with a maximum cache size.
+	 * This will possibly keep the input-stream open for longer,
+	 * but it will save memory as the cache size is kept under control.
+	 */
+	public BufferedStream(Stream<T> stream, int maxCacheSize) {
+		this(stream, () -> blockingCache(maxCacheSize));
+	}
+
+	/**
+	 * Creates a BufferedStream of the given {@link java.util.stream.Stream stream}.
+	 */
 	public BufferedStream(Stream<T> stream) {
 		this.delegate = new Iterator<>(stream).stream();
 	}

@@ -1,10 +1,14 @@
-package org.xomda.common.function;
+package org.xomda.common.util.streams;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -22,24 +26,32 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
-import org.xomda.common.function.testutils.TimedStream;
+import org.xomda.common.util.stream.BufferedStream;
+import org.xomda.test.utils.TimedStream;
 
-@Execution(ExecutionMode.CONCURRENT)
+@Execution(ExecutionMode.SAME_THREAD)
 class BufferedStreamTest {
 
 	private long startTime;
-
 	private TestInfo testInfo;
+	private PrintStream out;
+	private OutputStream os;
 
 	@BeforeEach
 	void init(TestInfo testInfo) {
 		this.testInfo = testInfo;
 		this.startTime = System.currentTimeMillis();
+		os = new ByteArrayOutputStream();
+		out = new PrintStream(os);
 	}
 
 	@AfterEach
-	void afterEach() {
-		System.out.println("\n--------------------------------------------------------\n");
+	void afterEach() throws IOException {
+		try (final OutputStream os = this.os) {
+			out.println("\n--------------------------------------------------------\n");
+		} finally {
+			System.out.print(os.toString());
+		}
 	}
 
 	@Test
@@ -53,7 +65,7 @@ class BufferedStreamTest {
 				assertEquals(0, cache.size());
 				result.add(log(i, cache));
 			});
-			System.out.println(String.join("\n", result));
+			out.println(String.join("\n", result));
 		});
 	}
 
@@ -70,7 +82,7 @@ class BufferedStreamTest {
 				result.add(log(i, cache));
 			});
 			assertTrue(cache.isEmpty());
-			System.out.println(String.join("\n", result));
+			out.println(String.join("\n", result));
 			assertEquals(100, result.size());
 		});
 	}
@@ -86,7 +98,7 @@ class BufferedStreamTest {
 				result.add(log(i, cache));
 			});
 			assertTrue(cache.isEmpty());
-			System.out.println(String.join("\n", result));
+			out.println(String.join("\n", result));
 			assertEquals(50, result.size());
 		});
 	}
@@ -104,7 +116,7 @@ class BufferedStreamTest {
 				result.add(log(i, cache));
 			});
 			assertTrue(cache.isEmpty());
-			System.out.println(String.join("\n", result));
+			out.println(String.join("\n", result));
 			assertEquals(100, result.size());
 		});
 	}
@@ -122,7 +134,7 @@ class BufferedStreamTest {
 						return (log(i, cache));
 					})
 					.collect(Collectors.toList());
-			System.out.println(String.join("\n", result));
+			out.println(String.join("\n", result));
 			assertEquals(96, result.size());
 		});
 	}
@@ -140,7 +152,7 @@ class BufferedStreamTest {
 					})
 					.collect(Collectors.toList());
 			assertTrue(cache.isEmpty());
-			System.out.println(String.join("\n", result));
+			out.println(String.join("\n", result));
 			assertEquals(50, result.size());
 		});
 	}
@@ -155,7 +167,7 @@ class BufferedStreamTest {
 						return (log(i, cache));
 					})
 					.collect(Collectors.toList());
-			System.out.println(String.join("\n", result));
+			out.println(String.join("\n", result));
 			assertEquals(10, result.size());
 		});
 	}
@@ -173,7 +185,7 @@ class BufferedStreamTest {
 					})
 					.collect(Collectors.toList());
 			assertTrue(cache.isEmpty());
-			System.out.println(String.join("\n", result));
+			out.println(String.join("\n", result));
 			assertEquals(200, result.size());
 		});
 	}
@@ -189,7 +201,7 @@ class BufferedStreamTest {
 					})
 					.collect(Collectors.toList());
 			assertTrue(cache.isEmpty());
-			System.out.println(String.join("\n", result));
+			out.println(String.join("\n", result));
 			assertEquals(200, result.size());
 		});
 	}
@@ -212,7 +224,7 @@ class BufferedStreamTest {
 					})
 					.collect(Collectors.toList());
 			assertTrue(cache.isEmpty());
-			System.out.println(String.join("\n", result));
+			out.println(String.join("\n", result));
 			assertEquals(count, result.size());
 		});
 	}

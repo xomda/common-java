@@ -1,4 +1,4 @@
-package org.xomda.common.function.testutils;
+package org.xomda.test.utils;
 
 import java.util.Iterator;
 import java.util.Spliterator;

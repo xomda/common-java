@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 /**
  * Utils for creating and working with {@link Predicate predicates}.
  */
-public class Predicates {
+public final class Predicates {
 
 	private static final Predicate<?> ALWAYS_TRUE = always(true);
 	private static final Predicate<?> ALWAYS_FALSE = always(false);

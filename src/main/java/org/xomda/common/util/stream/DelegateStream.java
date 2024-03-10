@@ -1,4 +1,4 @@
-package org.xomda.common.function;
+package org.xomda.common.util.stream;
 
 import java.util.Comparator;
 import java.util.Iterator;
