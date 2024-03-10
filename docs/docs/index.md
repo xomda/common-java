@@ -1,7 +1,8 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
-layout: page
+layout: doc
 ---
 
-<meta http-equiv="refresh" content="0; url=/exception/sneaky-throw.html">
+# XOMDA / common-java
 
+Common utility methods, providing more power to streams and functions in general.
