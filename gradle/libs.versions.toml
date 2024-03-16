@@ -1,5 +1,5 @@
 [versions]
-xomda-common-java = "0.1.0"
+xomda-common-java = "0.2.0"
 junit-jupiter = "5.10.2"
 
 [libraries]
