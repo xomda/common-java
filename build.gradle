@@ -6,7 +6,38 @@ group = 'org.xomda'
 version = libs.versions.xomda.common.java.get()
 
 repositories {
+    mavenLocal()
     mavenCentral()
+    maven {
+        name 'xomda packages'
+        url 'https://maven.pkg.github.com/xomda/common-java'
+        credentials {
+            username = System.getenv("USERNAME")
+            password = System.getenv("TOKEN")
+        }
+    }
+}
+
+publishing {
+
+    publications {
+        maven(MavenPublication) {
+            version = libs.versions.xomda.common.java.get()
+            group 'org.xomda'
+            from components.java
+        }
+    }
+
+    repositories {
+        mavenLocal()
+        maven {
+            url = "https://maven.pkg.github.com/xomda/common-java"
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
+            }
+        }
+    }
 }
 
 dependencies {
