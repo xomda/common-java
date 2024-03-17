@@ -5,6 +5,14 @@ plugins {
 group = 'org.xomda'
 version = libs.versions.xomda.common.java.get()
 
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+// stop complaining when generating javadocs
+javadoc.options.addStringOption('Xdoclint:none', '-quiet')
+
 repositories {
     mavenLocal()
     mavenCentral()
