@@ -1,9 +1,12 @@
 package org.xomda.common.function;
 
+import java.util.Collection;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import org.xomda.common.exception.SneakyThrow;
+import org.xomda.common.util.stream.Streams;
 
 /**
  * Helper methods work with {@link Function functions}, 
@@ -56,6 +59,33 @@ public final class Functions {
 	 */
 	public static <T, R, E extends Throwable> Function<T, R> mapOrNull(final SneakyThrow.ThrowingFunction<T, R, E> fn) {
 		return mapOr(fn, null);
+	}
+
+	/**
+	 * Create a {@link Function function} that returns a {@link Stream stream} instead of an {@link Iterable iterable}.
+	 * This is handy when flatMapping for example:
+	 * <code><pre>
+	 *     stream.flatMap(asStream(User::getShoppingList))
+	 * </pre></code>
+	 */
+	public static <T, R> Function<T, Stream<R>> asStream(final Function<T, Iterable<R>> fn) {
+		return fn.andThen(Functions::toStream);
+	}
+
+	/**
+	 * Create a {@link BiFunction bi-function} that returns a {@link Stream stream} instead of an {@link Iterable iterable}.
+	 */
+	public static <T, U, R> BiFunction<T, U, Stream<R>> asStream(final BiFunction<T, U, Iterable<R>> fn) {
+		return fn.andThen(Functions::toStream);
+	}
+
+	/**
+	 * Takes an {@link Iterable iterable}, turns it into a {@link Stream stream}.
+	 */
+	private static <T> Stream<T> toStream(Iterable<T> it) {
+		return it instanceof Collection<T> col
+				? col.stream()
+				: Streams.stream(it);
 	}
 
 	private Functions() {

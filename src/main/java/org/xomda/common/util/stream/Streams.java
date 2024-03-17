@@ -72,6 +72,21 @@ public final class Streams {
 	}
 
 	/**
+	 * Short way to create a sequential {@link Stream stream} out of an {@link Iterable iterable},
+	 * while still specifying whether it has to be a parallel stream or not.
+	 */
+	public static <T> Stream<T> stream(Iterable<T> it, boolean parallel) {
+		return StreamSupport.stream(it.spliterator(), parallel);
+	}
+
+	/**
+	 * Short way to create a sequential {@link Stream stream} out of an {@link Iterable iterable}.
+	 */
+	public static <T> Stream<T> stream(Iterable<T> it) {
+		return stream(it, false);
+	}
+
+	/**
 	 * Create a cascading stream, starting with the first element,
 	 * proceeding with the outcome of the "next" {@link UnaryOperator unary operator}.
 	 * It will run as long as the returned value isn't null, or the parent itself.
