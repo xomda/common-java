@@ -72,7 +72,8 @@ publishing {
     }
 
     repositories {
-        // mavenLocal()
+        mavenLocal()
+        /*
         maven {
             url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
             credentials {
@@ -80,18 +81,15 @@ publishing {
                 password = project.findProperty("ossrh.password") ?: System.getenv("MAVEN_PASSWORD")
             }
         }
-        /*
-        if (System.getenv("GITHUB_PUBLISH"))
-            maven {
-                url = "https://maven.pkg.github.com/xomda/common-java"
-                credentials {
-                    username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-                    password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
-                }
-            }
-
-        if (System.getenv("MAVEN_PUBLISH"))
         */
+        maven {
+            url = "https://maven.pkg.github.com/xomda/common-java"
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
+            }
+        }
+
 
     }
 }
