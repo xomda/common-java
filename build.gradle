@@ -10,6 +10,14 @@ java {
     withJavadocJar()
 }
 
+//signing {
+//    sign configurations.archives
+//}
+
+artifacts {
+    archives jar, javadocJar, sourcesJar
+}
+
 // stop complaining when generating javadocs
 javadoc.options.addStringOption('Xdoclint:none', '-quiet')
 
@@ -27,24 +35,64 @@ repositories {
 }
 
 publishing {
-
     publications {
         maven(MavenPublication) {
             version = libs.versions.xomda.common.java.get()
             group 'org.xomda'
             from components.java
+
+            //  snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+            pom {
+                name = 'XOMDA Common Java'
+                description = 'Common Java Utils'
+                url = 'http://utils.xomda.org'
+
+                scm {
+                    connection = 'scm:git:git://github.com:xomda/common-java.git'
+                    developerConnection = 'scm:git:git://github.com:xomda/common-java.git'
+                    url = 'https://github.com/xomda/common-java/'
+                }
+
+                licenses {
+                    license {
+                        name = 'Mozilla Public License Version 2.0'
+                        url = 'https://raw.githubusercontent.com/xomda/common-java/main/README.md'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'JorisAerts'
+                        name = 'Joris Aerts'
+                        email = '3611758+JorisAerts@users.noreply.github.com'
+                    }
+                }
+            }
         }
     }
 
     repositories {
-        mavenLocal()
+        // mavenLocal()
         maven {
-            url = "https://maven.pkg.github.com/xomda/common-java"
+            url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
             credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
+                username = project.findProperty("ossrh.username") ?: System.getenv("MAVEN_USERNAME")
+                password = project.findProperty("ossrh.password") ?: System.getenv("MAVEN_PASSWORD")
             }
         }
+        /*
+        if (System.getenv("GITHUB_PUBLISH"))
+            maven {
+                url = "https://maven.pkg.github.com/xomda/common-java"
+                credentials {
+                    username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                    password = project.findProperty("gpr.token") ?: System.getenv("TOKEN")
+                }
+            }
+
+        if (System.getenv("MAVEN_PUBLISH"))
+        */
+
     }
 }
 

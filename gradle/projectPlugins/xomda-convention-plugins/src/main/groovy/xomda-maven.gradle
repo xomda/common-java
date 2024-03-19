@@ -1,0 +1,13 @@
+// Stuff common to all types of xomda projects
+plugins {
+    id 'maven'
+    id 'signing'
+}
+
+allprojects {
+    publishing {
+        publications {
+
+        }
+    }
+}

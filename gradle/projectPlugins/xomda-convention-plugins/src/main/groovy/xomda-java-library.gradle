@@ -3,6 +3,7 @@ plugins {
     id('xomda-java-base')
     id('java-library')
     id('maven-publish')
+    id('signing')
 }
 
 javadoc.options.addStringOption('Xdoclint:none', '-quiet')
