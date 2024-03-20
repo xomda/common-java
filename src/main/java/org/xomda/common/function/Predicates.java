@@ -97,7 +97,7 @@ public final class Predicates {
 	 * </pre></code>
 	 */
 	public static <T, V> Predicate<T> against(Function<T, V> getter, V value) {
-		return against(getter, isEqual(value));
+		return testAgainst(getter, isEqual(value));
 	}
 
 	/**
@@ -105,11 +105,11 @@ public final class Predicates {
 	 * and you want to filter out the persons with a name called "John". Then you could say:
 	 * <code><pre>
 	 *     Stream.of(persons)
-	 *     	.filter(against(Person::getName, isEqual("John")))
+	 *     	.filter(testAgainst(Person::getName, isEqual("John")))
 	 *     	.toList();
 	 * </pre></code>
 	 */
-	public static <T, V> Predicate<T> against(Function<T, V> getter, Predicate<V> predicate) {
+	public static <T, V> Predicate<T> testAgainst(Function<T, V> getter, Predicate<V> predicate) {
 		return (T value) -> predicate.test(getter.apply(value));
 	}
 
