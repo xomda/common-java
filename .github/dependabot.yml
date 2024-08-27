@@ -9,3 +9,27 @@ updates:
     directory: "/docs/"
     schedule:
       interval: "monthly"
+
+    groups:
+      eslint:
+        patterns:
+          - 'eslint*'
+          - 'globals'
+          - '@eslint/*'
+          - '@typescript-eslint/*'
+          - '@rushstack/eslint-patch'
+          - '@types/eslint'
+      stylelint:
+        patterns:
+          - 'stylelint*'
+      vue:
+        patterns:
+          - 'vue*'
+          - '@vue/*'
+      vite:
+        patterns:
+          - 'vite*'
+          - '@vitejs/*'
+      vueuse:
+        patterns:
+          - '@vueuse/*'
