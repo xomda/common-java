@@ -1,6 +1,6 @@
 [versions]
 xomda-common-java = "0.3.0"
-junit-jupiter = "5.11.4"
+junit-jupiter = "5.12.1"
 
 [libraries]
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit-jupiter" }
